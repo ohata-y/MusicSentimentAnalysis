@@ -5,10 +5,9 @@ from numpy import nan
 import re
 from difflib import SequenceMatcher
 from multiprocessing import Pool
-from typing import Pattern, Tuple
+from typing import Pattern
 from pandas import DataFrame
 from time import time
-from lyricsgenius.genius import Song
 
 
 genius = Genius(access_token=os.environ["GeniusAPIClientAccessToken"], 
@@ -296,23 +295,24 @@ df_ranking = pd.read_csv("data/ranking.csv")
 
 
 # multiprocessing
-#if __name__ == "__main__":
-#    start_time = time()
-#
-#    num = 6989 // 16
-#    rest = 6989 % 16
-#    idxs = [i for i in range(0, 6989, num)]
-#    idxs[-1] += rest
-#    values = [[df_ranking, idxs[i], idxs[i+1]] for i in range(len(idxs) - 1)]
-#
-#    p = Pool(processes=16)
-#    p.map(wrapper, values)
-#    p.close()
-#    p.join()
-#
-#    total_time = time() - start_time
-#
-#    print(f"All processes are done. (Time: {total_time:.2f}s)")
+if __name__ == "__main__":
+    start_time = time()
+
+    data_size = len(df_ranking)
+    num = data_size // 16
+    rest = 6989 % 16
+    idxs = [i for i in range(0, 6989, num)]
+    idxs[-1] += rest
+    values = [[df_ranking, idxs[i], idxs[i+1]] for i in range(len(idxs) - 1)]
+
+    p = Pool(processes=16)
+    p.map(wrapper, values)
+    p.close()
+    p.join()
+
+    total_time = time() - start_time
+
+    print(f"All processes are done. (Time: {total_time:.2f}s)")
 
 # test
-search_lyrics(df_ranking, 400, 500)
+# search_lyrics(df_ranking, 400, 500)
