@@ -1,2 +1,8 @@
 /music_analysis_env
 /.vscode
+/data_lyrics_sub
+/data_search_error_sub
+/data_unreliable_result_sub
+/test.ipynb
+/data/unreliable_result.csv
+/data/search_error.csv

@@ -278,18 +278,18 @@ def search_lyrics(df: DataFrame, start: int, end: int) -> None:
     df_tmp1 = df.iloc[start:end,].copy()
     df_tmp1.reset_index(drop=True, inplace=True)
 
-    df_tmp2 = pd.DataFrame(data=lyrics, columns=["lyric"])
+    df_tmp2 = pd.DataFrame(data=lyrics, columns=["lyrics"])
 
     df_result = pd.concat([df_tmp1, df_tmp2], axis=1)
-    df_result.to_csv(f"data/lyrics{start}-{end-1}.csv", index=False)
+    df_result.to_csv(f"data_lyrics_sub/lyrics{start}-{end-1}.csv", index=False)
 
     if len(search_error) != 0:
         df_search_error = pd.DataFrame(data=search_error, columns=["year", "rank", "title", "artist", "modified_title", "modified_artist"])
-        df_search_error.to_csv(f"data/search_error{start}-{end-1}.csv", index=False)
+        df_search_error.to_csv(f"data_search_error_sub/search_error{start}-{end-1}.csv", index=False)
 
     if len(unreliable_result) != 0:
-        df_unreliable_result = pd.DataFrame(data=unreliable_result, columns=["year", "rank", "title", "genius_title", "artist", "genius_artist", "lyric"])
-        df_unreliable_result.to_csv(f"data/unreliable_result{start}-{end-1}.csv", index=False)
+        df_unreliable_result = pd.DataFrame(data=unreliable_result, columns=["year", "rank", "title", "genius_title", "artist", "genius_artist", "lyrics"])
+        df_unreliable_result.to_csv(f"data_unreliable_result_sub/unreliable_result{start}-{end-1}.csv", index=False)
     
     total_time = time() - start_time
     print(f"Subprocess {start}-{end} ends. (Time: {total_time:.2f}s)")
