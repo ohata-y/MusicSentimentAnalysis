@@ -90,10 +90,23 @@ def artist_modification(artist: str) -> list[str]:
     else:
         modified_artist = artist.replace(" and ", "|").replace(" & ", "|").replace(" with ", "|").replace(", ", "|")
         modified_artists = modified_artist.split(sep="|")
+        tmp_result = []
         result = [artist]
         for artist in modified_artists:
-            result += parentheses_separator(artist, include_original=False)
-        result = list(set(result))
+            tmp_result += parentheses_separator(artist, include_original=False)
+        tmp_result = list(set(tmp_result))
+        for artist in tmp_result:
+            idx_capital_the = artist.find("The")
+            idx_the = artist.find("the")
+            idx_orchestra = artist.find("Orchestra")
+            if (idx_capital_the == 0 or idx_the == 0) and idx_orchestra == len(artist) - 9:
+                result += [artist, artist[4:], artist[:idx_orchestra-1], artist[4:idx_orchestra-1]]
+            elif idx_the == 0:
+                result += [artist, artist[4:]]
+            elif idx_orchestra == len(artist) - 9:
+                result += [artist, artist[:idx_orchestra-1]]
+            else:
+                result.append(artist)
     return result
 
 
@@ -125,13 +138,12 @@ def artist_similarity_check(artist1: str, artist2: str) -> bool:
 
 def search_lyrics(df: DataFrame, start: int, end: int) -> None:
     """
-    Search song lyrics in Genius and output them as csv files.\\
-    Output:
-    1. lyrics: successfully got lyrics
-    2. no_lyrics: the song does not have lyrics
-    3. unreliable: the search result seems to be unreliable
-    4. both_unreliable: first and second search result seem to be unreliable
-    5. nan: search error
+    Search song lyrics again that was once failed and output them as csv files.\\
+    Note that following values at "lyric" column show several problems:
+    1. "no_lyrics": the song does not have lyrics
+    2. "unreliable": the search result seems to be unreliable
+    3. "both_unreliable": first and second search result seem to be unreliable
+    4. nan: search error 
     """
     print(f"Subprocess {start}-{end} starts.")
     start_time = time()
@@ -159,7 +171,7 @@ def search_lyrics(df: DataFrame, start: int, end: int) -> None:
                 lyrics[i - start] = nan
                 song_info = [year, rank, title, artist, modified_title, modified_artist]
                 search_error.append(song_info)
-                break
+                continue
 
             # When the search succeeded and a song has lyrics
             if song is not None:
@@ -204,7 +216,7 @@ def search_lyrics(df: DataFrame, start: int, end: int) -> None:
                     lyrics[i - start] = nan
                     song_info = [year, rank, title, artist, modified_title, modified_artist]
                     search_error.append(song_info)
-                    break
+                    continue
 
                 second_search_done_flag = True
             
@@ -238,7 +250,7 @@ def search_lyrics(df: DataFrame, start: int, end: int) -> None:
                             lyrics[i - start] = nan
                             song_info = [year, rank, title, artist, modified_title, modified_artist]
                             search_error.append(song_info)
-                            break
+                            continue
 
                         # When second search succeeded and the song has lyrics
                         if song is not None:
@@ -295,6 +307,7 @@ df_ranking = pd.read_csv("data/ranking.csv")
 
 
 # multiprocessing
+# It will take around 21 minutes.
 if __name__ == "__main__":
     start_time = time()
 
@@ -313,6 +326,3 @@ if __name__ == "__main__":
     total_time = time() - start_time
 
     print(f"All processes are done. (Time: {total_time:.2f}s)")
-
-# test
-# search_lyrics(df_ranking, 400, 500)
