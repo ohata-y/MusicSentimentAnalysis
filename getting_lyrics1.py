@@ -139,7 +139,7 @@ def artist_similarity_check(artist1: str, artist2: str) -> bool:
 def search_lyrics(df: DataFrame, start: int, end: int) -> None:
     """
     Search song lyrics again that was once failed and output them as csv files.\\
-    Note that following values at "lyric" column show several problems:
+    Note that following values at "lyrics" column show several problems:
     1. "no_lyrics": the song does not have lyrics
     2. "unreliable": the search result seems to be unreliable
     3. "both_unreliable": first and second search result seem to be unreliable
