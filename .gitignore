@@ -8,4 +8,5 @@
 /data/search_error.csv
 /data/data_info.csv
 /data/lyrics.csv
+/data/modified_lyrics.csv
 /__pycache__
