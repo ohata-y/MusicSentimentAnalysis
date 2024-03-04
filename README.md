@@ -1,7 +1,6 @@
 # Sentiment Analysis in Music
 
-*Note: This project is still ongoing.*\
-*Note: This README is also not completed.*
+### *Note: This project was suspended .*
 
 This is where I record codes and results of sentiment analysis in US music which I have done as a final report of Practical Data Analysis for Economics (autumn, 2023 Hitotsubashi University).
 
@@ -33,30 +32,23 @@ and I modified some parts of the contents in order to remove unnecessary words f
 
 #### 1.2.2. Genius.com
 
+I used 
+[LyricsGenius](https://github.com/johnwmillr/LyricsGenius) 
+to acquire lyrics from Genius, but later I found that the library uses BeutifulSoup to scrape lyrics and this activity might violate Genius’s 
+[Terms of Service](https://genius.com/static/terms).
 
+#### LyricsGenius
+>Genius has legal agreements with music publishers and considers the lyrics on their website to be a legal property of Genius, and won’t allow you to re-use their lyrics without explicit licensing. They even sued Google on grounds of stolen lyrics, asking for $50 million in damages, but to no avail. So it shouldn’t come as a surprise if they don’t provide lyrics in calls to the API. So how does LyricsGenius get the lyrics?
+>
+>LyricsGenius uses a web-scraping library called Beautiful Soup to scrape lyrics from the song’s page on Genius. Scraping the lyrics in this way violates Genius’ terms of service. If you intend to use the lyrics for personal purposes, that shouldn’t be cause for trouble, but other than that, you should inquire what happens when you violate the terms this way. As a reminder, LyricsGenius is not responsible for your usage of the library.\
+(https://lyricsgenius.readthedocs.io/en/master/how_it_works.html)
 
-#### Sentiment analysis by VEDER and BERT
+#### Genius's Terms of Service
 
-Contents
+One of the prohibited activities is
+>harvesting or collecting, through use of automated scripts or otherwise, the contents of the Service or email addresses, contact information or other private information of other Users from the Service for any purpose, including without limitation for the purposes of sending unsolicited emails or other unsolicited communications to Users or reproducing the content of the Service;\
+(https://genius.com/static/terms)
 
-## 2. Results
-
-### 2.1. Scraping
-
-[scraping_wiki.ipynb](https://github.com/ohata-y/MusicSentimentAnalysis/blob/main/scraping_wiki.ipynb)\
-[robot.txt](https://en.wikipedia.org/robots.txt)
-
-### 2.2. Getting lyrics from [Genius.com](https://genius.com/)
-
-[getting_lyrics1.py](https://github.com/ohata-y/MusicSentimentAnalysis/blob/main/getting_lyrics1.py)\
-[getting_lyrics2.ipynb](https://github.com/ohata-y/MusicSentimentAnalysis/blob/main/getting_lyrics2.ipynb)
-
-### 2.3. Brief data description
-
-[data_basic_info.ipynb](https://github.com/ohata-y/MusicSentimentAnalysis/blob/main/data_basic_info.ipynb)
-
-### 2.4. Sentiment analysis (VADER)
-
-
-### 2.5. Sentiment analysis (BERT)
+Therefore, I decided to suspend this project.\
+Instead, I am planning to start a new project using financial data.
 
